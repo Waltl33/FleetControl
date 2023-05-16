@@ -16,8 +16,41 @@ Repair.destroy_all
 
 10.times do
 
-    Clients.create!(
-        
+    Client.create!(
+            first_name:Faker::Name.first_name,
+            last_name:Faker::Name.last_name,
+            phone:Faker::Number.number(digits: 10),
+            address:Faker::Address.full_address #=> "282 Kevin Brook, Imogeneborough, CA 58517"
     )
 
+
+5.times do
+    Repair.create!(
+            date_sent:Faker::Date.between(from: '2020-09-23', to: '2023-09-25'),
+            comment:Faker::Quote.famous_last_words,
+            repaired:true
+    )
 end
+
+
+5.times do
+    Repair.create!(
+            date_sent:Faker::Date.between(from: '2020-09-23', to: '2023-09-25'),
+            comment:Faker::Quote.famous_last_words,
+            repaired:false
+    )
+end
+
+15.times do
+    Vehicle.create!(
+        make:Faker::Vehicle.make,
+        model:Faker::Vehicle.make,
+        color:Faker::Vehicle.color,
+        vehicle_number:Faker::Number.number(digits: 6),
+        client_id: Client.all().sample().id,
+        repair_id: Repair.all().sample().id,
+        
+    )
+end
+end
+puts 'Done seeding data'
