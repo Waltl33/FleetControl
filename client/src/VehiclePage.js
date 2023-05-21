@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect} from "react"
-import Customer from  "./Customer.js"
+import CustomerList from  "./CustomerList.js"
 import {Routes, Route} from "react-router-dom"
 
 
@@ -13,7 +13,7 @@ useEffect(() => {
 
     fetch("/clients")
     .then(resp => resp.json())
-    .then(console.log)
+    .then(setClients)
 }, [])
 
 
@@ -23,8 +23,8 @@ return(
     <>
   <Routes>
     <Route path = "/" element={
-        <Customer
-        client = {clients}
+        <CustomerList
+        clients = {clients}
         />
     }/>
     
