@@ -24,8 +24,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_16_201754) do
   end
 
   create_table "repairs", force: :cascade do |t|
-    t.integer "date_sent"
-    t.integer "date_received"
+    t.string "date_sent"
+    t.string "date_received"
     t.string "comment"
     t.boolean "repaired"
     t.datetime "created_at", null: false

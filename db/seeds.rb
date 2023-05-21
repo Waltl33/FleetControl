@@ -35,7 +35,7 @@ end
 
 5.times do
     Repair.create!(
-            date_sent:Faker::Date.between(from: '2020-09-23', to: '2023-09-25'),
+            date_sent:Faker::Date.forward(days: 23),
             comment:Faker::Quote.famous_last_words,
             repaired:false
     )
@@ -46,6 +46,7 @@ end
         make:Faker::Vehicle.make,
         model:Faker::Vehicle.make,
         color:Faker::Vehicle.color,
+        mileage:Faker::Vehicle.mileage,
         vehicle_number:Faker::Number.number(digits: 6),
         client_id: Client.all().sample().id,
         repair_id: Repair.all().sample().id,
