@@ -1,6 +1,6 @@
 import React from "react";
 import {useState, useEffect} from "react"
-import CustomerList from  "./CustomerList.js"
+import CustomerList from  "./components/CustomerList.js"
 import {Routes, Route} from "react-router-dom"
 
 
