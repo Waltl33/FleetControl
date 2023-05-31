@@ -3,7 +3,7 @@ import {useState, useEffect} from "react"
 import CustomerList from  "/home/hitstixx/code/vehicle-project/client/src/components/CustomerList.js"
 import {Routes, Route} from "react-router-dom"
 import CustomerForm  from "/home/hitstixx/code/vehicle-project/client/src/components/CustomerForm.js";
-
+import EditCustomerForm from "./components/EditCustomer";
 
 function VehiclePage(){
 
@@ -20,6 +20,15 @@ const handleNewCustomer = (newCustomer) => {
   setClients(newCustomer, ...clients)
 }
 
+const updateCustomer = (updatedCustomer) => setClients(current => {
+  return current.map(client => {
+    if(client.id === updateCustomer.id){
+      return updatedCustomer
+    }else{
+      return client
+    }
+    })
+  })
 
 return(
     <>
@@ -39,6 +48,15 @@ return(
     }/>
     
   </Routes>  
+  <Routes>
+    <Route path = "customers/:id/edit" element={
+        <EditCustomerForm
+        clients = {clients}
+        />
+    }/>
+    
+  </Routes>  
+    
     
     </>
 

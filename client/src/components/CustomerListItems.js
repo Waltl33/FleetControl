@@ -1,7 +1,35 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
 
-const CustomerListItems = ({client}) => (
+function CustomerListItems({client}){
+const navigate = useNavigate()
+const {id} = client
+  const handleEdit = (e) => {
+    e.preventDefault()
+   console.log(id)
+       fetch(`/customers/${id}`, {
+        method: "PATCH",
+        headers: {"Content-Type": "application/json"
+      },
+        body: JSON.stringify(client)
+      })
+      .then(res => {
+        if (res.ok) {
+          res.json().then(() => {
+            navigate(`/customers/${id}/edit`);
+          });
+        } else {
+          res.json().then(json => {
+            console.log(json.error);
+          });
+        }
+      });
+  }
+  
+
+  
+  return(
   <Table compact celled definition>
     <Table.Header>
       <Table.Row>
@@ -41,14 +69,15 @@ const CustomerListItems = ({client}) => (
           >
             <Icon name='user' /> Add User
           </Button>
-          <Button size='small'>Approve</Button>
-          <Button disabled size='small'>
-            Approve All
+          <Button onClick={handleEdit} size='small'
+                  primary>
+           Edit Customer
           </Button>
         </Table.HeaderCell>
       </Table.Row>
     </Table.Footer>
   </Table>
 )
+}
 
 export default CustomerListItems
