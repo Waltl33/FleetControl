@@ -6,6 +6,8 @@ import CustomerListItems from "/home/hitstixx/code/vehicle-project/client/src/co
 function CustomerList({clients}) {
 
 
+
+
   return (
     <div>
       <ul className="Table">{clients.map(client =>

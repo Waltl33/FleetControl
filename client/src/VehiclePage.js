@@ -1,8 +1,8 @@
 import React from "react";
 import {useState, useEffect} from "react"
-import CustomerList from  "./components/CustomerList.js"
+import CustomerList from  "/home/hitstixx/code/vehicle-project/client/src/components/CustomerList.js"
 import {Routes, Route} from "react-router-dom"
-
+import CustomerForm  from "/home/hitstixx/code/vehicle-project/client/src/components/CustomerForm.js";
 
 
 function VehiclePage(){
@@ -16,7 +16,9 @@ useEffect(() => {
     .then(setClients)
 }, [])
 
-
+const handleNewCustomer = (newCustomer) => {
+  setClients(newCustomer, ...clients)
+}
 
 
 return(
@@ -29,7 +31,14 @@ return(
     }/>
     
   </Routes>  
+  <Routes>
+    <Route path = "customers/new" element={
+        <CustomerForm
+        handleNewCustomer = {handleNewCustomer}
+        />
+    }/>
     
+  </Routes>  
     
     </>
 
