@@ -1,5 +1,7 @@
 class ClientsController < ApplicationController
-
+    wrap_parameters format: []
+    rescue_from ActionController::UnpermittedParameters, with: :render_unpermitted_params_response
+    before_action :set_access_control_headers
     def index     
         render json: Client.all, status: :ok
     end
@@ -13,10 +15,10 @@ class ClientsController < ApplicationController
     end
 
     def update
-        clients = Client.find(params[:id])
-        clients.update(client_params)
-        render json: clients, status: :accepted
+        client = Client.find(params[:id])
+        render json = client.update!(client_params), status: :ok
     end
+
     def destroy
         client = Client.find(params[:id])
         client.destroy
@@ -28,7 +30,14 @@ class ClientsController < ApplicationController
     private
 
     def client_params
-         params.permit(:first_name, :last_name, :phone, :address)
+         params.permit(:first_name, :last_name, :phone, :address, :id)
     end
-
+    def render_unpermitted_params_response
+        render json: { "Unpermitted Parameters": params.to_unsafe_h.except(:controller, :action, :id,).keys }, status: :unprocessable_entity
+    end
+    def set_access_control_headers
+        headers['Access-Control-Allow-Origin'] = 'http://localhost:4000'
+        headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+        headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
+    end
 end

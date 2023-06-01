@@ -3,7 +3,7 @@ import { Button, Form } from 'semantic-ui-react'
 import { useNavigate, useParams } from 'react-router-dom'
 
 
-function EditCustomerForm({clients, updateCustomer}){
+function EditCustomerForm({client, updateCustomer}){
 
     const [first_name, setFirstName] = useState("")
     const [last_name, setLastName] = useState ("")
@@ -11,7 +11,7 @@ function EditCustomerForm({clients, updateCustomer}){
     const [phone, setPhone] = useState ("")
 
     let navigate = useNavigate()
-    
+
     let editCustomer = {
         first_name: first_name,
         last_name: last_name,
@@ -29,7 +29,7 @@ function EditCustomerForm({clients, updateCustomer}){
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        fetch(`/deputies/${id}`,{
+        fetch(`/clients/${id}`,{
             method: "PATCH",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(editCustomer)

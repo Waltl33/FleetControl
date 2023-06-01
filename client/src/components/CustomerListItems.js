@@ -4,11 +4,13 @@ import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
 
 function CustomerListItems({client}){
 const navigate = useNavigate()
-const {id} = client
-  const handleEdit = (e) => {
+
+const {id, first_name, last_name, address, phone} = client
+
+function handleEdit(e) {
     e.preventDefault()
-   console.log(id)
-       fetch(`/customers/${id}`, {
+  
+       fetch(`/clients/${id}`, {
         method: "PATCH",
         headers: {"Content-Type": "application/json"
       },
@@ -27,7 +29,6 @@ const {id} = client
       });
   }
   
-
   
   return(
   <Table compact celled definition>
